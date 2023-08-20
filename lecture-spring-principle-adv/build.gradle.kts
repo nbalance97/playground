@@ -18,6 +18,7 @@ configurations {
     compileOnly {
         extendsFrom(configurations.annotationProcessor.get())
     }
+
 }
 
 repositories {
@@ -28,6 +29,7 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter-web")
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
     implementation("org.jetbrains.kotlin:kotlin-reflect")
+    testImplementation("org.junit.jupiter:junit-jupiter:5.8.1")
     compileOnly("org.projectlombok:lombok")
     annotationProcessor("org.projectlombok:lombok")
     testImplementation("org.springframework.boot:spring-boot-starter-test")
