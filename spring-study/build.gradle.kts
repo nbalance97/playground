@@ -22,6 +22,7 @@ repositories {
 }
 
 dependencies {
+    implementation(project(":domain")) // 다른 모듈에 대한 dependencies를 추가해 줄땐 project()로 묶어주어야 한다
     implementation("org.springframework.boot:spring-boot-starter-web")
     compileOnly("org.projectlombok:lombok")
     annotationProcessor("org.projectlombok:lombok")
@@ -31,3 +32,5 @@ dependencies {
 tasks.withType<Test> {
     useJUnitPlatform()
 }
+
+tasks.register("prepareKotlinBuildScriptModel") // prepareKotlinBuildScriptModel task가 없다는 에러 발생 시 추가
