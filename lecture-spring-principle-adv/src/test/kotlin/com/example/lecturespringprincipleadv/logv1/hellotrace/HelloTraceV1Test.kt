@@ -1,4 +1,4 @@
-package com.example.lecturespringprincipleadv.logv1.HelloTrace
+package com.example.lecturespringprincipleadv.logv1.hellotrace
 
 import org.junit.jupiter.api.Test
 

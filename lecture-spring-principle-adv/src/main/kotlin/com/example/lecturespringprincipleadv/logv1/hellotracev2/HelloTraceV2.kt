@@ -1,14 +1,13 @@
-package com.example.lecturespringprincipleadv.logv1.HelloTrace
+package com.example.lecturespringprincipleadv.logv1.hellotracev2
 
 import com.example.lecturespringprincipleadv.logv1.TraceId
 import com.example.lecturespringprincipleadv.logv1.TraceStatus
 import org.slf4j.LoggerFactory
-import org.springframework.context.annotation.Scope
 import org.springframework.stereotype.Component
 
 
 @Component
-class HelloTraceV1 {
+class HelloTraceV2 {
 
     /**
      * Kotlin에서는 Slf4j로 로그가 찍히지 않는다
@@ -18,6 +17,13 @@ class HelloTraceV1 {
 
     fun begin(message: String): TraceStatus {
         val traceId = TraceId()
+        val startTimeMs = System.currentTimeMillis()
+        log.info("[{}] {}{}", traceId.traceId, "${"| ".repeat(traceId.level)}-->", message)
+        return TraceStatus(traceId, startTimeMs, message)
+    }
+
+    fun beginSync(beforeTraceId: TraceId, message: String): TraceStatus {
+        val traceId = beforeTraceId.generateNextId()
         val startTimeMs = System.currentTimeMillis()
         log.info("[{}] {}{}", traceId.traceId, "${"| ".repeat(traceId.level)}-->", message)
         return TraceStatus(traceId, startTimeMs, message)
