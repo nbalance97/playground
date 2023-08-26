@@ -5,7 +5,6 @@ import com.example.lecturespringprincipleadv.logv1.TraceStatus
 import org.slf4j.LoggerFactory
 import org.springframework.stereotype.Component
 
-
 @Component
 class HelloTraceV1 {
 
