@@ -1,11 +1,11 @@
-package com.example.lecturespringprincipleadv
+package com.example.springstudy
 
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication
 
 @SpringBootApplication
-class LectureSpringPrincipleAdvApplication
+class SpringStudyApplication
 
 fun main(args: Array<String>) {
-    runApplication<LectureSpringPrincipleAdvApplication>(*args)
+    runApplication<SpringStudyApplication>(*args)
 }
