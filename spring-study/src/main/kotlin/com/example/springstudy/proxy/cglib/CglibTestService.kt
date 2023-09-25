@@ -10,12 +10,11 @@ import java.lang.reflect.Method
 /**
  * final class -> CGlib 설정이 불가능하다
  * 코틀린에서는 기본적으로 final class (plugin의 도움으로 자동으로 @Service같은 어노테이션이 붙으면 Open으로 간주됨)
+ * Spring AOP에서도 MethodInterceptor을 사용함에 유의하자.
  *
  * + 코틀린은 class만 open으로 한다고 다가 아니다. cglib에서 method도 open 붙여주자
  */
-
-
-open class TestService {
+open class CglibTestService {
     val logger = LoggerFactory.getLogger(javaClass)
 
     open fun test(): String {
@@ -30,9 +29,9 @@ open class TestServiceUsage {
 
     fun test() {
         val enhancer = Enhancer()
-        enhancer.setSuperclass(TestService::class.java)
+        enhancer.setSuperclass(CglibTestService::class.java)
         enhancer.setCallback(CglibInterceptor())
-        val proxy = enhancer.create() as TestService
+        val proxy = enhancer.create() as CglibTestService
 
         println(proxy.test())
     }
