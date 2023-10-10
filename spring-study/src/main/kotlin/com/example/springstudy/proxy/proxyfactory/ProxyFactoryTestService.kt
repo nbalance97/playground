@@ -49,6 +49,8 @@ open class ProxyAdviceJdkDynamicProxyTestClassImpl : ProxyAdviceJdkDynamicProxyT
 
 class ProxyFactoryTestService {
 
+    private val logger: Logger = LoggerFactory.getLogger(javaClass)
+
     fun test() {
 
 //         1. cglib
@@ -58,10 +60,21 @@ class ProxyFactoryTestService {
 //        val proxy = proxyFactory.proxy as ProxyAdviceTestClass
 
         // 2. Jdk Dynamic Proxy
+//        val target: ProxyAdviceJdkDynamicProxyTestClass = ProxyAdviceJdkDynamicProxyTestClassImpl()
+//        val proxyFactory = ProxyFactory(target)
+//        proxyFactory.addAdvice(ProxyAdvice())
+//        val proxy = proxyFactory.proxy as ProxyAdviceJdkDynamicProxyTestClass
+
+        // 3. 인터페이스의 구현체임에도 Cglib을 쓰고싶을때 isProxyTargetClass 속성 추가
         val target: ProxyAdviceJdkDynamicProxyTestClass = ProxyAdviceJdkDynamicProxyTestClassImpl()
         val proxyFactory = ProxyFactory(target)
         proxyFactory.addAdvice(ProxyAdvice())
+        proxyFactory.isProxyTargetClass = true // cglib을 사용하기 위해 "구체 클래스" 를 대상으로 프록시 생성
+        // Spring AOP는 기본적으로 CGLIB으로 프록시를 생성한다 (항상 isProxyTargetClass = true)
         val proxy = proxyFactory.proxy as ProxyAdviceJdkDynamicProxyTestClass
+
+        logger.info("target : ${target.javaClass}")
+        logger.info("proxy : ${proxy.javaClass}")
 
         proxy.test()
     }
