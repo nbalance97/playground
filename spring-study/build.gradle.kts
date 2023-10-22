@@ -20,6 +20,12 @@ repositories {
 
 dependencies {
     implementation("org.springframework.boot:spring-boot-starter-web")
+    /**
+     * Advisor만 적용하더라도 AnnotationAwareAspectJAutoProxyCreator에 의해 자동 프록시 처리
+     * 클래스와 메서드를 Pointcut에 매칭되는지 확인하고, 하나라도 매칭된다면 프록시를 생성한다
+     * 메서드를 호출할 때 Pointcut을 검사한다.
+     */
+    implementation("org.springframework.boot:spring-boot-starter-aop")
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
     implementation("org.jetbrains.kotlin:kotlin-reflect")
     testImplementation("org.springframework.boot:spring-boot-starter-test")

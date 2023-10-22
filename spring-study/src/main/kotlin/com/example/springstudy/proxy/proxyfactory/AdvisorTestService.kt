@@ -5,6 +5,7 @@ import org.aopalliance.intercept.MethodInvocation
 import org.springframework.aop.ClassFilter
 import org.springframework.aop.MethodMatcher
 import org.springframework.aop.Pointcut
+import org.springframework.aop.aspectj.AspectJExpressionPointcut
 import org.springframework.aop.framework.ProxyFactory
 import org.springframework.aop.support.DefaultPointcutAdvisor
 import org.springframework.stereotype.Service
@@ -21,6 +22,8 @@ import java.lang.reflect.Method
  *
  * 가장 중요한 것은 AspectJExpressionPointcut이다
  */
+
+
 
 open class AdvisorTargetObj {
 
@@ -78,5 +81,31 @@ class AdvisorTestService {
         factory2.addAdvisor(DefaultPointcutAdvisor(PointcutTestObj(), AdviceTestObj())) // DefaultPointcutAdvisor은 기본적으로 Advisor만 넘기면 Pointcut.TRUE를 사용한다
         val proxy2 = factory2.proxy as AdvisorTargetObj
         proxy2.test()
+    }
+
+    fun aspectJPointcutTest() {
+        val factory = ProxyFactory(AdvisorTargetObj())
+        val pointcut = AspectJExpressionPointcut().apply {
+            this.expression = "execution(* com.example.springstudy.proxy.proxyfactory.AdvisorTargetObj.test(..))"
+        }
+
+        factory.addAdvisor(DefaultPointcutAdvisor(pointcut, AdviceTestObj())) // DefaultPointcutAdvisor은 기본적으로 Advisor만 넘기면 Pointcut.TRUE를 사용한다
+        val proxy = factory.proxy as AdvisorTargetObj
+
+        proxy.test()
+    }
+
+    fun aspectJPointcutTestWithWrongPointcut() {
+        val factory = ProxyFactory(AdvisorTargetObj())
+
+        // 대상 메소드명이 잘못되어 호출되지 않는 포인트컷 지정해보기
+        val pointcut = AspectJExpressionPointcut().apply {
+            this.expression = "execution(* com.example.springstudy.proxy.proxyfactory.AdvisorTargetObj.test2(..))"
+        }
+
+        factory.addAdvisor(DefaultPointcutAdvisor(pointcut, AdviceTestObj())) // DefaultPointcutAdvisor은 기본적으로 Advisor만 넘기면 Pointcut.TRUE를 사용한다
+        val proxy = factory.proxy as AdvisorTargetObj
+
+        proxy.test()
     }
 }
