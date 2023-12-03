@@ -49,6 +49,10 @@ class PostProcessorTest {
 
         val logger = LoggerFactory.getLogger(javaClass)
 
+        /**
+         * bean을 생성한 이후 후처리
+         * 여기서 아예 새로운 빈으로 갈아 끼울 수도 있다 -> 프록시로 교체할수도 있음
+         */
         override fun postProcessBeforeInitialization(bean: Any, beanName: String): Any? {
             if (bean is A) {
                 logger.info("bean은 A클래스이므로 B로 대체")

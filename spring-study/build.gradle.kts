@@ -5,6 +5,7 @@ plugins {
     id("io.spring.dependency-management") version "1.1.3"
     kotlin("jvm") version "1.8.22"
     kotlin("plugin.spring") version "1.8.22"
+    kotlin("plugin.jpa") version "1.8.22"
 }
 
 group = "com.example"
@@ -20,6 +21,8 @@ repositories {
 
 dependencies {
     implementation("org.springframework.boot:spring-boot-starter-web")
+    implementation("org.springframework.boot:spring-boot-starter-data-jpa")
+
     /**
      * Advisor만 적용하더라도 AnnotationAwareAspectJAutoProxyCreator에 의해 자동 프록시 처리
      * 클래스와 메서드를 Pointcut에 매칭되는지 확인하고, 하나라도 매칭된다면 프록시를 생성한다
@@ -29,6 +32,19 @@ dependencies {
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
     implementation("org.jetbrains.kotlin:kotlin-reflect")
     testImplementation("org.springframework.boot:spring-boot-starter-test")
+
+    /**
+     * h2 dependencies
+     * https://www.baeldung.com/spring-boot-h2-database
+     */
+    implementation("com.h2database:h2")
+
+    /**
+     * Coroutine Dependencies
+     */
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-reactive")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-reactor")
 }
 
 tasks.withType<KotlinCompile> {

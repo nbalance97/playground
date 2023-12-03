@@ -2,3 +2,5 @@ rootProject.name = 'playground'
 include 'domain'
 include 'spring-cloud-bus'
 include 'spring-study'
+include 'java-study'
+
