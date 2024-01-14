@@ -1,4 +1,4 @@
-package com.example.springstudy.mvc.transactional.parallel.entity
+package com.example.springstudy.transactional.parallel.entity
 
 import jakarta.persistence.*
 
