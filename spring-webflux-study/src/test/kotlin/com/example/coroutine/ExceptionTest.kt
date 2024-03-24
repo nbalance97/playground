@@ -152,7 +152,7 @@ class ExceptionTest {
     }
 
     @Test
-    fun test() {
+    fun `coroutine_with_CoroutineExceptionHandler`() {
         runBlocking {
             val handler = CoroutineExceptionHandler { _, exception ->
                 println("CoroutineExceptionHandler got ${exception}")
@@ -161,6 +161,29 @@ class ExceptionTest {
             val scope = CoroutineScope(SupervisorJob() + handler)
             scope.launch {
                 throw IllegalArgumentException("error")
+            }
+        }
+    }
+
+    @Test
+    fun `supervisorScope와 async-await-try-catch 사용 예제`() {
+        runBlocking {
+            supervisorScope {
+                val deferred = async {
+                    throw IllegalArgumentException("error")
+                }
+
+                try {
+                    deferred.await()
+                } catch (e: Exception) {
+                    /**
+                     * 여기에 걸리기는 한다. 단 async {} 에서 발생한 블록이 부모로 올라가려고 시도는 함
+                     * 하지만 supervisorScope의 경우는 자식 코루틴이 실패하더라도 부모 코루틴에 전파되지 않는다
+                     * coroutineScope로 바꿔주는 경우 부모 코루틴으로 전파하려고 시도함. 단 coroutineScope를 호출하는 쪽에서 통째로 try-catch로 묶어준다면
+                     * 예외가 위까지 전파되지는 않는다. (CancellationException은 별도로 처리해주어야 할 것으로 보임)
+                     */
+                    println("error")
+                }
             }
         }
     }
