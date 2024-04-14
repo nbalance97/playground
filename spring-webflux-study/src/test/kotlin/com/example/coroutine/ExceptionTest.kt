@@ -4,6 +4,11 @@ import kotlinx.coroutines.*
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows
 
+// TODO: CancellationException, Throwable 코루틴 테스트 해보기
+/**
+ * Cancellation : 자기 + 자식 코루틴 취소
+ * Throwable (CancellationException 제외) : 부모 전파 + 자기 취소
+ */
 class ExceptionTest {
 
     @Test
@@ -105,14 +110,14 @@ class ExceptionTest {
     @Test
     fun `async-await 예외처리 테스트`() {
         runBlocking {
-            supervisorScope {
+            coroutineScope {
                 /**
                  * async-await의 경우 await() 하는 시점에 try-catch로 예외를 처리할수 있음
                  */
                 val deferred = async {
-                    throw IllegalArgumentException("에러가 발생하였습니다.")
+                    throw CancellationException("에러가 발생하였습니다.")
 
-                    "abc"
+                    emptyList<String>()
                 }
 
                 /**
@@ -124,8 +129,11 @@ class ExceptionTest {
                  * }
                  */
 
-                assertThrows<IllegalArgumentException>("에러가 발생하였습니다.") {
-                    deferred.await()
+                assertThrows<CancellationException>("에러가 발생하였습니다.") {
+                    println("hello")
+                    val data = deferred.await()
+
+                    println(data)
                 }
             }
         }

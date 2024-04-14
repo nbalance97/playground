@@ -1,6 +1,7 @@
 package com.example.coroutine
 
 import kotlinx.coroutines.*
+import kotlinx.coroutines.test.runTest
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
@@ -128,5 +129,23 @@ class JobTest {
             // completeExceptionally는 자식 코루틴들을 취소시켜 버림 (끝까지 대기하지 않으므로 job2는 실행되지 않음)
             job.join()
         }
+    }
+
+    @Test
+    fun `가장 일반적인 Job 사용법`() = runTest {
+        val job = Job()
+
+        launch (job) {
+            delay(500)
+            println("job1 execute")
+        }
+
+        launch(job) {
+            delay(300)
+            println("job2 execute")
+        }
+
+        job.complete()
+        job.join()
     }
 }
