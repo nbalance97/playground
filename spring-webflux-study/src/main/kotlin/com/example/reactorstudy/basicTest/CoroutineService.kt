@@ -1,4 +1,4 @@
-package com.example.springwebfluxstudy.basicTest
+package com.example.reactorstudy.basicTest
 
 import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.withContext

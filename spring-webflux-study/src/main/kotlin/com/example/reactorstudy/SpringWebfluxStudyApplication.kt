@@ -1,4 +1,4 @@
-package com.example.springwebfluxstudy
+package com.example.reactorstudy
 
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication
