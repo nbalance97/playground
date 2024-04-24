@@ -24,6 +24,6 @@ class HotColdTest {
         }
 
         // 아래 코드를 주석하면 값 생성(flow)라는 문구는 출력되지 않는다
-        flow.collect { }
+        // flow.collect { }
     }
 }

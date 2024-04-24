@@ -29,10 +29,28 @@ class Flow1ImplFinal {
             // 여기서 emit()을 호출하는데, 이 emit이 아래 collector의 FlowCollector#emit이다
             // collect의 lambda가 emit이라고 보아도 됨
             emit("Hello")
-        }
+        } // Flow
             .collect {
                 println(it)
             }
+    }
+
+    @Test
+    fun `flow 동작원리 실습 테스트`() = runTest {
+        val collector = object : FlowCollector2<String> {
+            override suspend fun emit(value: String) {
+                println("collect object: ${this}")
+                println(value)
+            }
+        }
+
+        flow2 {
+            // 여기서 emit()을 호출하는데, 이 emit이 아래 collector의 FlowCollector#emit이다
+            // collect의 lambda가 emit이라고 보아도 됨
+            println("flow2 object: ${this}")
+            emit("Hello")
+        }
+            .collect(collector)
     }
 
     // Map 구현 테스트

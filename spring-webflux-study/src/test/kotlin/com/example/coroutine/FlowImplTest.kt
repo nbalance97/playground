@@ -38,7 +38,8 @@ class Flow1ImplTest {
         suspendF3 { println(it) }
 
         // it도 쓰기 귀찮다
-        val suspendF4: suspend FlowCollector1.() -> Unit = { emit("Hello") }
+        val suspendF4: suspend FlowCollector1.() -> Unit = {
+            emit("Hello") }
 
         suspendF4 { println(it) }
     }
@@ -68,6 +69,9 @@ class Flow1ImplTest {
             }
         }
 
-        flow { emit("Hello") }.collect { println(it) }
+        flow {
+            emit("Hello")
+        }
+            .collect { println(it) }
     }
 }

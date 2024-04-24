@@ -5,6 +5,8 @@ plugins {
     id("io.spring.dependency-management") version "1.1.4"
     kotlin("jvm") version "1.9.22"
     kotlin("plugin.spring") version "1.9.22"
+
+    id("idea")
 }
 
 group = "com.example"
@@ -41,3 +43,10 @@ tasks.withType<Test> {
 }
 
 tasks.register("prepareKotlinBuildScriptModel")
+
+idea {
+    module {
+        isDownloadJavadoc = true
+        isDownloadSources = true
+    }
+}

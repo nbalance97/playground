@@ -12,7 +12,7 @@ import org.junit.jupiter.api.Test
 class SelectTest {
 
     @Test
-    fun `가장 빨리 종료되는 작업 대기 테스트`() = runTest {
+    fun `가장 빨리 종료되는 작업 대기 테스트`(): Unit = runBlocking(Dispatchers.Default) {
         val a = async {
             delay(1000)
             1
