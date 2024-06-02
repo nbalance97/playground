@@ -1,11 +1,9 @@
 package com.example.coroutine
 
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.*
 import kotlinx.coroutines.test.runTest
 import org.junit.jupiter.api.Test
+import java.lang.Thread.sleep
 
 class DispatcherTest {
 
@@ -20,6 +18,15 @@ class DispatcherTest {
             launch(Dispatchers.Default) {
                 println("Default: ${Thread.currentThread().name}")
             }
+        }
+    }
+
+    @Test
+    fun `test`() {
+        val scope = CoroutineScope(Dispatchers.IO)
+
+        scope.launch {
+
         }
     }
 
@@ -83,10 +90,44 @@ class DispatcherTest {
     fun `Dispatchers 테스트 - Single Thread`() = runTest {
         val dispatcher = Dispatchers.IO.limitedParallelism(1)
 
+        listOf(1, 2, 3).map { async { it } }.awaitAll()
+
         repeat(5) {
             launch(dispatcher) {
                 println("thread: ${Thread.currentThread().name}")
             }
+        }
+    }
+
+    @Test
+    fun `Dispatcher ThreadPool 테스트`() = runTest {
+        var threadAName = ""
+        var threadBName = ""
+
+        launch(Dispatchers.Default) {
+            sleep(1000)
+            threadAName = Thread.currentThread().name
+        }
+
+        launch(Dispatchers.IO) {
+            sleep(1000)
+            threadBName = Thread.currentThread().name
+        }
+
+        coroutineContext.job.children.forEach { it.join() }
+
+        /**
+         * Dispatchers.Default와 Dispatchers.IO는 공유 쓰레드풀을 사용하기 때문에 모두 DefaultDispatcher-worker-n이라는 쓰레드가 나옴
+         */
+        println("threadAName: $threadAName")
+        println("threadBName: $threadBName")
+
+        /**
+         * 공유 쓰레드풀을 사용하지 않도록 하려면 어떻게 하면 될까?
+         */
+        val dispatcher = newFixedThreadPoolContext(2, "myPool")
+        launch(dispatcher) {
+            println("thread: ${Thread.currentThread().name}")
         }
     }
 }

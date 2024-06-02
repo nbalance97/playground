@@ -1,6 +1,7 @@
 package com.example.coroutine
 
 import kotlinx.coroutines.*
+import kotlinx.coroutines.test.runTest
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 import kotlin.coroutines.CoroutineContext
@@ -72,5 +73,11 @@ class CoroutineContextTest {
                 }
             }
         }
+    }
+
+    @Test
+    fun `companion object 테스트`() = runTest {
+        val coroutineName = coroutineContext[CoroutineName.Key]
+        val key = CoroutineName.Key
     }
 }

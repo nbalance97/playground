@@ -42,6 +42,7 @@ class FlowTest {
 //                    sleep(100)
 
                     delay(1000)
+                    logger.info("처리 데이터 -> ${it}")
                     emit(it)
                 }
             }
