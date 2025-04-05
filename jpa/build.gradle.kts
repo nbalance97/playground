@@ -1,6 +1,9 @@
 plugins {
 	java
-	id("org.springframework.boot") version "3.1.5"
+	kotlin("jvm") version "2.0.0"
+	kotlin("plugin.jpa") version "2.0.0"
+	kotlin("plugin.spring") version "2.0.0"
+	id("org.springframework.boot") version "3.3.0"
 	id("io.spring.dependency-management") version "1.1.3"
 }
 
@@ -28,7 +31,6 @@ dependencies {
 	runtimeOnly("com.h2database:h2")
 	annotationProcessor("org.projectlombok:lombok")
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
-	testCompileOnly("org.projectlombok:lombok")
 }
 
 tasks.withType<Test> {

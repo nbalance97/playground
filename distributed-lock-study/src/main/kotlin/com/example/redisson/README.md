@@ -11,3 +11,7 @@ https://helloworld.kurly.com/blog/distributed-redisson-lock/
    - ``` docker-compose up -d ```
 2. redis 테스트
    - ``` redis-cli -h localhost -p 6379 ```
+
+### 개념
+
+분산락
