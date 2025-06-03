@@ -2,8 +2,6 @@ package com.example.redisson.service
 
 import org.redisson.api.RedissonClient
 import org.springframework.stereotype.Service
-import org.springframework.transaction.annotation.Propagation
-import org.springframework.transaction.annotation.Transactional
 import java.lang.Thread.sleep
 import java.util.concurrent.TimeUnit
 
@@ -44,34 +42,6 @@ class RedissonService(
         }
 
         println("increment 종료")
-    }
-
-    /**
-     * Proxy [ ... aop ]
-     * f()
-     *
-     * aop Transactional ??
-     * [ Transactional(r ..., Transactional, ]
-     * begin
-     * commit
-     *
-     * 실행 결과가 같음 (범위 동일)
-     *
-     * begin
-     * begin
-     * commit
-     * commit
-     *
-     */
-
-    @Transactional
-    fun f() {
-        aop_f()
-    }
-
-    @Transactional(propagation = Propagation.REQUIRES_NEW)
-    fun aop_f() {
-        f()
     }
 
     private fun getAndIncrement() {
