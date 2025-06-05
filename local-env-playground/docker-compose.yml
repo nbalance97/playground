@@ -1,0 +1,22 @@
+version: '3.8'
+
+services:
+  db:
+    image: mysql:8.0
+    container_name: playground_mysql_db
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: playground
+      MYSQL_USER: local_dev
+      MYSQL_PASSWORD: local_dev
+    ports:
+      - "4416:3306"
+    volumes:
+      - ./db-data:/var/lib/mysql
+    command: --default-authentication-plugin=mysql_native_password
+    # 기본값 : 8.0에서는 사용자 암호에 기본적으로 caching_sha2_password 암호화 방식을 사용함
+    # 하위버전에선 mysql_native_password 방식을 사용하여 호환성을 맞춰주기 위해 필요한 커맨드
+
+volumes:
+  db_data:
+    driver: local

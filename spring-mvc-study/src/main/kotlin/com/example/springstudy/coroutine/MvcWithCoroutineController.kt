@@ -1,4 +1,4 @@
-package com.example.springstudy.mvcwithcoroutine
+package com.example.springstudy.coroutine
 
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers

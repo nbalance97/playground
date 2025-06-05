@@ -1,19 +1,10 @@
-
-# mem? ??? file?? ?? ????
-# url: jdbc:h2:file:~/testdb
+# spring.config.import
+# @see https://kim-oriental.tistory.com/50
+# spring boot내 프로젝트 내의 파일, 서버나 PC의 외부 컨피그 파일, http url 등 다양한 위치에서 설정 파일을 가져올 수 있다.
+# 추가로 없는 경우에 대응하기 위해 Optional로 설정도 가능함
 
 spring:
-  datasource:
-    url: jdbc:h2:mem:testdb
-    username: sa
-    password: password
-  jpa:
-    hibernate:
-      ddl-auto: create
-    show-sql: true
-    properties:
-      hibernate:
-        format_sql: true
-    database-platform: org.hibernate.dialect.H2Dialect
-
-hibernate:
+  config:
+    import:
+    # 자잘한 문법 : import 하위에 -로 구분하여 여러 파일을 지정할수 있다
+    - classpath:application-datasource.yml

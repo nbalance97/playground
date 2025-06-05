@@ -1,0 +1,16 @@
+spring:
+  datasource:
+    url: jdbc:mysql://localhost:4416/playground
+    username: local_dev
+    password: local_dev
+  jpa:
+    hibernate:
+      ddl-auto: none
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+        dialect: org.hibernate.dialect.MySQLDialect # Dialect 설정 없으면 에러남
+        # MySQL8Dialect는 Deprecated, 이유 @see https://docs.jboss.org/hibernate/orm/6.0/migration-guide/migration-guide.html
+        # 요약 : Hibernate 6.0부터는 버전을 구체적으로 명시한 dialect들은 더이상 사용하지 않음
+    open-in-view: false
