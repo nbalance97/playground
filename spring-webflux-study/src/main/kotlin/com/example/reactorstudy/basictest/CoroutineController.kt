@@ -1,4 +1,4 @@
-package com.example.reactorstudy.basicTest
+package com.example.reactorstudy.basictest
 
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.RestController

@@ -1,4 +1,4 @@
-package com.example.reactorstudy.basicTest
+package com.example.reactorstudy.basictest
 
 import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.withContext
