@@ -3,6 +3,13 @@ spring:
     url: jdbc:mysql://localhost:4416/playground
     username: local_dev
     password: local_dev
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    hikari:
+      connection-timeout: 30000 # 30초
+      idle-timeout: 600000 # 10분
+      max-lifetime: 1800000 # 30분
+      maximum-pool-size: 10 # 최대 커넥션 수
+      minimum-idle: 5 # 최소 커넥션 수
   jpa:
     hibernate:
       ddl-auto: none
@@ -14,3 +21,5 @@ spring:
         # MySQL8Dialect는 Deprecated, 이유 @see https://docs.jboss.org/hibernate/orm/6.0/migration-guide/migration-guide.html
         # 요약 : Hibernate 6.0부터는 버전을 구체적으로 명시한 dialect들은 더이상 사용하지 않음
     open-in-view: false
+
+hikari.max
